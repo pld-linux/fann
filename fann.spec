@@ -2,6 +2,7 @@
 # TODO:
 # - add C examples
 # - fix BRs
+# - optflags for binary part of python module
 # 
 Summary:	A fast artificial neural network library
 Summary(pl):	Szybka biblioteka do tworzenia sztucznych sieci neuronowych
