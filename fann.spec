@@ -1,7 +1,6 @@
 #
 # TODO:
 # - add C examples
-# - pl desc
 # - fix BRs
 # 
 Summary:	A fast artificial neural network library
@@ -10,13 +9,16 @@ Name:		fann
 Version:	1.1.0
 Release:	1
 License:	LGPL
-Group:		Development/Libraries
+Group:		Libraries
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 # Source0-md5:	f8280e9849cfbf5ddf769713ce7f7fba
 Patch0:		%{name}-python.patch
 URL:		http://fann.sf.net/
-BuildRequires:	swig
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool
 BuildRequires:	python-devel >= 2.3
+BuildRequires:	swig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -25,18 +27,26 @@ The library implements multilayer feedforward ANNs, up to 150 times
 faster than other libraries. FANN supports execution in fixed point,
 for fast execution on systems like the iPAQ.
 
+%description -l pl
+FANN (Fast Artificial Neural Network - szybkie sztuczne sieci
+neuronowe) to biblioteka napisana w ANSI C, implementuj±ca
+wielowarstwowe sztuczne sieci neuronowe, do 150 razy szybsza od innych
+bibliotek. FANN obs³uguje operacje sta³oprzecinkowe w celu szybkiego
+dzia³ania na systemach typu iPAQ.
+
 %package devel
 Summary:	Development libraries for FANN
 Summary(pl):	Pliki nag³ówkowe FANN
-Requires:	%{name} = %{version}-%{release}
 Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
 This package is only needed if you intend to develop and/or compile
 programs based on the FANN library.
 
 %description devel -l pl
-Pliki nag³ówkowe FANN.
+Pliki nag³ówkowe FANN, potrzebne do tworzenia programów napisanych w
+oparciu o bibliotekê FANN.
 
 %package static
 Summary:	FANN static libraries
@@ -74,16 +84,18 @@ Modu³ jêzyka Python dla biblioteki FANN.
 %{__automake}
 %configure
 %{__make}
-(cd doc && make html-single)
-(
-cd python && 
-CFLAGS="%{rpmcflags}" make &&
+%{__make} -C doc html-single
+cd python
+CFLAGS="%{rpmcflags}" \
+%{__make}
 %py_comp .
-%py_ocomp .)
+%py_ocomp .
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} DESTDIR=$RPM_BUILD_ROOT install
+
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT{%{py_sitedir},%{_examplesdir}/python-%{name}-%{version}}
 install python/{fann.pyc,fann.pyo,_fann.so} $RPM_BUILD_ROOT%{py_sitedir}
@@ -92,21 +104,25 @@ install python/simple_train.py $RPM_BUILD_ROOT%{_examplesdir}/python-%{name}-%{v
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
+%doc AUTHORS ChangeLog NEWS README TODO
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
 
 %files devel
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README TODO doc/fann.html
+%doc doc/fann.html
 %attr(755,root,root) %{_libdir}/lib*.so
-%{_pkgconfigdir}/fann.pc
 %{_libdir}/lib*.la
 %{_includedir}/*.h
+%{_pkgconfigdir}/fann.pc
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/*.a
+%{_libdir}/lib*.a
 
 %files -n python-%{name}
 %defattr(644,root,root,755)
