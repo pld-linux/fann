@@ -12,7 +12,7 @@ URL:		http://fann.sf.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
-BuildRequires:	python-devel >= 2.3
+BuildRequires:	python-devel >= 1:2.3
 BuildRequires:	swig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
