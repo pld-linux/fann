@@ -1,0 +1,11 @@
+--- fann-1.1.0/python/Makefile.old	2004-01-28 09:42:55.000000000 +0100
++++ fann-1.1.0/python/Makefile	2004-06-05 15:56:46.242972328 +0200
+@@ -6,7 +6,7 @@
+ all: $(TARGETS)
+ 
+ _%.so: %_wrap.o
+-	gcc -shared $< -lfann -o $@ 
++	gcc -shared $< -L../src/.libs/ -lfann -o $@ 
+ 
+ %.o: %.c 
+ 	gcc -c -fpic $< -I/usr/include/python2.3/
