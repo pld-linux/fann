@@ -2,7 +2,7 @@ Summary:	A fast artificial neural network library
 Summary(pl):	Szybka biblioteka do tworzenia sztucznych sieci neuronowych
 Name:		fann
 Version:	1.1.0
-Release:	2
+Release:	3
 License:	LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
