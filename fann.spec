@@ -27,7 +27,7 @@ for fast execution on systems like the iPAQ.
 
 %package devel
 Summary:	Development libraries for FANN
-Summary(pl):	Pliki nagÅ‚Ã³wkowe FANN
+Summary(pl):	Pliki nag³ówkowe FANN
 Requires:	%{name} = %{version}-%{release}
 Group:		Development/Libraries
 
@@ -36,7 +36,7 @@ This package is only needed if you intend to develop and/or compile
 programs based on the FANN library.
 
 %description devel -l pl
-Pliki nagÅ‚Ã³wkowe FANN.
+Pliki nag³ówkowe FANN.
 
 %package static
 Summary:	FANN static libraries
@@ -52,7 +52,7 @@ Biblioteki statyczne FANN.
 
 %package -n python-%{name}
 Summary:	Python support for FANN
-Summary(pl):	ModuÅ‚ jÄ™zyka Python dla biblioteki FANN
+Summary(pl):	Modu³ jêzyka Python dla biblioteki FANN
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
 %pyrequires_eq	python-libs
@@ -61,7 +61,7 @@ Requires:	%{name} = %{version}-%{release}
 Python support for FANN.
 
 %description -n python-%{name} -l pl
-ModuÅ‚ jÄ™zyka Python dla biblioteki FANN.
+Modu³ jêzyka Python dla biblioteki FANN.
 
 %prep
 %setup -q
