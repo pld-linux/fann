@@ -1,9 +1,3 @@
-#
-# TODO:
-# - add C examples
-# - fix BRs
-# - optflags for binary part of python module
-# 
 Summary:	A fast artificial neural network library
 Summary(pl):	Szybka biblioteka do tworzenia sztucznych sieci neuronowych
 Name:		fann
@@ -98,9 +92,12 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT{%{py_sitedir},%{_examplesdir}/python-%{name}-%{version}}
+install -d $RPM_BUILD_ROOT%{py_sitedir}
+install -d $RPM_BUILD_ROOT%{_examplesdir}/{python-%{name}-%{version},%{name}-%{version}}
+
 install python/{fann.pyc,fann.pyo,_fann.so} $RPM_BUILD_ROOT%{py_sitedir}
 install python/simple_train.py $RPM_BUILD_ROOT%{_examplesdir}/python-%{name}-%{version}
+install examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -120,6 +117,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/lib*.la
 %{_includedir}/*.h
 %{_pkgconfigdir}/fann.pc
+%{_examplesdir}/%{name}-%{version}
 
 %files static
 %defattr(644,root,root,755)
