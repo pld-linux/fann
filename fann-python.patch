@@ -9,7 +9,7 @@
  
  %.o: %.c 
 -	gcc -c -fpic $< -I/usr/include/python2.3/
-+	gcc ${CFLAGS} -c -fpic $< -I/usr/include/python2.3/
++	gcc ${CFLAGS} -c -fpic $< -I/usr/include/python2.4/ -I/usr/include/python2.3/
  
  %_wrap.c: %.i 
  	swig -python $<
