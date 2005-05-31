@@ -11,8 +11,12 @@ Patch0:		%{name}-python.patch
 URL:		http://fann.sf.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	docbook-dtd412-xml
+BuildRequires:	docbook-utils
 BuildRequires:	libtool
+BuildRequires:	python
 BuildRequires:	python-devel >= 1:2.3
+BuildRequires:	python-modules
 BuildRequires:	swig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
