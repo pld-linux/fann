@@ -17,7 +17,7 @@ BuildRequires:	libtool
 BuildRequires:	python
 BuildRequires:	python-devel >= 1:2.3
 BuildRequires:	python-modules
-BuildRequires:	swig
+BuildRequires:	swig-python >= 1.3.25
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
