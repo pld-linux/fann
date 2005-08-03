@@ -1,12 +1,12 @@
 Summary:	A fast artificial neural network library
 Summary(pl):	Szybka biblioteka do tworzenia sztucznych sieci neuronowych
 Name:		fann
-Version:	1.1.0
-Release:	3
+Version:	1.2.0
+Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
-# Source0-md5:	f8280e9849cfbf5ddf769713ce7f7fba
+# Source0-md5:	d655f82d4a47e4b697b0083fdaa78c71
 Patch0:		%{name}-python.patch
 URL:		http://fann.sf.net/
 BuildRequires:	autoconf
@@ -17,6 +17,7 @@ BuildRequires:	libtool
 BuildRequires:	python
 BuildRequires:	python-devel >= 1:2.3
 BuildRequires:	python-modules
+BuildRequires:	sed >= 4.0
 BuildRequires:	swig-python >= 1.3.25
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -85,8 +86,9 @@ Modu³ jêzyka Python dla biblioteki FANN.
 %{__make}
 %{__make} -C doc html-single
 cd python
+
 CFLAGS="%{rpmcflags}" \
-%{__make}
+%{__make} -f makefile.gnu
 %py_comp .
 %py_ocomp .
 
@@ -99,8 +101,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{py_sitedir}
 install -d $RPM_BUILD_ROOT%{_examplesdir}/{python-%{name}-%{version},%{name}-%{version}}
 
-install python/{fann.pyc,fann.pyo,_fann.so} $RPM_BUILD_ROOT%{py_sitedir}
-install python/simple_train.py $RPM_BUILD_ROOT%{_examplesdir}/python-%{name}-%{version}
+install python/{fann.pyc,fann.pyo,libfann.pyc,libfann.pyo} $RPM_BUILD_ROOT%{py_sitedir}
 install examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %clean
@@ -129,6 +130,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n python-%{name}
 %defattr(644,root,root,755)
-%attr(755,root,root) %{py_sitedir}/*.so
 %{py_sitedir}/*.py[co]
 %{_examplesdir}/python-%{name}-%{version}

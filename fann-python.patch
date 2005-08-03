@@ -1,15 +1,20 @@
---- fann-1.1.0-old/python/Makefile	2004-06-06 00:33:09.817753008 +0200
-+++ fann-1.1.0/python/Makefile	2004-06-06 00:32:31.565568224 +0200
-@@ -6,10 +6,10 @@
- all: $(TARGETS)
+--- fann-1.2.0/python/makefile.gnu.old	2005-08-03 11:08:19.000000000 +0200
++++ fann-1.2.0/python/makefile.gnu	2005-08-03 11:06:46.000000000 +0200
+@@ -3,7 +3,7 @@
  
- _%.so: %_wrap.o
--	gcc -shared $< -lfann -o $@ 
-+	gcc -shared ${CFLAGS} $< -L../src/.libs/ -lfann -o $@ 
+ TARGETS = _libfann.dll
+ 
+-PYTHON=python2.3
++PYTHON=python2.4
+ LIBS=-L. -L/usr/local/lib -L/usr/bin -l$(PYTHON) ../src/fann*.o
+ 
+ all: $(TARGETS)
+@@ -12,7 +12,7 @@
+ 	gcc $(LIBS) -shared -dll $^ -o $@
  
  %.o: %.c 
--	gcc -c -fpic $< -I/usr/include/python2.3/
-+	gcc ${CFLAGS} -c -fpic $< -I/usr/include/python2.4/ -I/usr/include/python2.3/
+-	gcc -c $< -I/usr/include/$(PYTHON)/
++	gcc -c $< -I/usr/include/$(PYTHON)/ -I../src/include/
  
  %_wrap.c: %.i 
  	swig -python $<
