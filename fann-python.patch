@@ -1,16 +1,24 @@
---- fann-1.2.0/python/makefile.gnu.old	2005-08-03 11:08:19.000000000 +0200
-+++ fann-1.2.0/python/makefile.gnu	2005-08-03 11:06:46.000000000 +0200
-@@ -3,7 +3,7 @@
+diff -urN fann-1.2.0/python/makefile.gnu fann-1.2.0.new/python/makefile.gnu
+--- fann-1.2.0/python/makefile.gnu	2004-10-09 13:56:57.000000000 +0200
++++ fann-1.2.0.new/python/makefile.gnu	2005-11-13 20:10:45.000000000 +0100
+@@ -1,18 +1,18 @@
+ # This makefile was written to compile a distribution of pyfann for
+ # GNU platforms (cygwin included.)
  
- TARGETS = _libfann.dll
+-TARGETS = _libfann.dll
++TARGETS = _libfann.so
  
 -PYTHON=python2.3
+-LIBS=-L. -L/usr/local/lib -L/usr/bin -l$(PYTHON) ../src/fann*.o
 +PYTHON=python2.4
- LIBS=-L. -L/usr/local/lib -L/usr/bin -l$(PYTHON) ../src/fann*.o
++LIBS=-L. -L/usr/lib -L/usr/bin -l$(PYTHON) ../src/fann*.o
  
  all: $(TARGETS)
-@@ -12,7 +12,7 @@
- 	gcc $(LIBS) -shared -dll $^ -o $@
+ 
+-_%.dll: %_wrap.o fann_helper.o
+-	gcc $(LIBS) -shared -dll $^ -o $@
++_%.so: %_wrap.o fann_helper.o
++	gcc $(LIBS) -shared $^ -o $@
  
  %.o: %.c 
 -	gcc -c $< -I/usr/include/$(PYTHON)/
