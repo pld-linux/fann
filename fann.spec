@@ -2,13 +2,13 @@ Summary:	A fast artificial neural network library
 Summary(pl):	Szybka biblioteka do tworzenia sztucznych sieci neuronowych
 Name:		fann
 Version:	1.2.0
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
+Source0:	http://dl.sourceforge.net/fann/%{name}-%{version}.tar.bz2
 # Source0-md5:	d655f82d4a47e4b697b0083fdaa78c71
 Patch0:		%{name}-python.patch
-URL:		http://fann.sf.net/
+URL:		http://fann.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	docbook-dtd412-xml
@@ -101,7 +101,8 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{py_sitedir}
 install -d $RPM_BUILD_ROOT%{_examplesdir}/{python-%{name}-%{version},%{name}-%{version}}
 
-install python/{fann.pyc,fann.pyo,libfann.pyc,libfann.pyo} $RPM_BUILD_ROOT%{py_sitedir}
+install python/{_libfann.so,fann.pyc,fann.pyo,libfann.pyc,libfann.pyo} $RPM_BUILD_ROOT%{py_sitedir}
+install python/examples/*.py $RPM_BUILD_ROOT%{_examplesdir}/python-%{name}-%{version} 
 install examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %clean
@@ -130,5 +131,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n python-%{name}
 %defattr(644,root,root,755)
+%attr(755,root,root) %{py_sitedir}/*.so
 %{py_sitedir}/*.py[co]
 %{_examplesdir}/python-%{name}-%{version}
