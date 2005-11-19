@@ -2,11 +2,13 @@ Summary:	A fast artificial neural network library
 Summary(pl):	Szybka biblioteka do tworzenia sztucznych sieci neuronowych
 Name:		fann
 Version:	1.2.0
-Release:	2
+Release:	3
 License:	LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/fann/%{name}-%{version}.tar.bz2
 # Source0-md5:	d655f82d4a47e4b697b0083fdaa78c71
+Source1:	http://dl.sourceforge.net/fann/%{name}_doc_complete_1.0.pdf
+# Source1-md5:	8117a677afc79dfaa31de39ca84d82da
 Patch0:		%{name}-python.patch
 URL:		http://fann.sourceforge.net/
 BuildRequires:	autoconf
@@ -48,6 +50,18 @@ programs based on the FANN library.
 Pliki nag³ówkowe FANN, potrzebne do tworzenia programów napisanych w
 oparciu o bibliotekê FANN.
 
+%package doc
+Summary:	FANN documentation
+Summary(pl):	Dokumentacja do FANN
+Group:		Documentation
+Requires:	%{name} = %{version}-%{release}
+
+%description doc
+Documentation for FANN in PDF format.
+
+%description doc -l pl
+Dokumentacja do FANN w formacie PDF.
+
 %package static
 Summary:	FANN static libraries
 Summary(pl):    Biblioteki statyczne FANN
@@ -75,6 +89,7 @@ Modu³ jêzyka Python dla biblioteki FANN.
 
 %prep
 %setup -q
+cp %{SOURCE1} .
 %patch0 -p1
 
 %build
@@ -124,6 +139,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*.h
 %{_pkgconfigdir}/fann.pc
 %{_examplesdir}/%{name}-%{version}
+
+%files doc
+%defattr(644,root,root,755)
+%doc fann_doc_complete_1.0.pdf
 
 %files static
 %defattr(644,root,root,755)
