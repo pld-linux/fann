@@ -1,20 +1,18 @@
 Summary:	A fast artificial neural network library
 Summary(pl):	Szybka biblioteka do tworzenia sztucznych sieci neuronowych
 Name:		fann
-Version:	1.2.0
-Release:	3
+Version:	2.0.0
+Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/fann/%{name}-%{version}.tar.bz2
-# Source0-md5:	d655f82d4a47e4b697b0083fdaa78c71
+# Source0-md5:	4224efa533265dcf39237667973d0e20
 Source1:	http://dl.sourceforge.net/fann/%{name}_doc_complete_1.0.pdf
 # Source1-md5:	8117a677afc79dfaa31de39ca84d82da
 Patch0:		%{name}-python.patch
 URL:		http://fann.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	docbook-dtd412-xml
-BuildRequires:	docbook-utils
 BuildRequires:	libtool
 BuildRequires:	python
 BuildRequires:	python-devel >= 1:2.3
@@ -54,13 +52,12 @@ oparciu o bibliotekê FANN.
 Summary:	FANN documentation
 Summary(pl):	Dokumentacja do FANN
 Group:		Documentation
-Requires:	%{name} = %{version}-%{release}
 
 %description doc
-Documentation for FANN in PDF format.
+Documentation for FANN.
 
 %description doc -l pl
-Dokumentacja do FANN w formacie PDF.
+Dokumentacja do FANN.
 
 %package static
 Summary:	FANN static libraries
@@ -99,11 +96,10 @@ cp %{SOURCE1} .
 %{__automake}
 %configure
 %{__make}
-%{__make} -C doc html-single
 cd python
 
 CFLAGS="%{rpmcflags}" \
-%{__make} -f makefile.gnu
+%{__make}
 %py_comp .
 %py_ocomp .
 
@@ -113,12 +109,17 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT%{py_sitedir}
-install -d $RPM_BUILD_ROOT%{_examplesdir}/{python-%{name}-%{version},%{name}-%{version}}
+cd python
+%{__make} install \
+	ROOT=$RPM_BUILD_ROOT
 
-install python/{_libfann.so,fann.pyc,fann.pyo,libfann.pyc,libfann.pyo} $RPM_BUILD_ROOT%{py_sitedir}
+cd ..
+install -d $RPM_BUILD_ROOT%{_examplesdir}/{python-,}%{name}-%{version}
+
 install python/examples/*.py $RPM_BUILD_ROOT%{_examplesdir}/python-%{name}-%{version} 
 install examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+
+rm -f $RPM_BUILD_ROOT%{py_sitedir}/pyfann/*.py
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -133,7 +134,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc doc/fann.html
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_libdir}/lib*.la
 %{_includedir}/*.h
@@ -142,7 +142,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files doc
 %defattr(644,root,root,755)
-%doc fann_doc_complete_1.0.pdf
+%doc fann_doc_complete_1.0.pdf doc/*
 
 %files static
 %defattr(644,root,root,755)
@@ -150,6 +150,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n python-%{name}
 %defattr(644,root,root,755)
-%attr(755,root,root) %{py_sitedir}/*.so
-%{py_sitedir}/*.py[co]
+%attr(755,root,root) %{py_sitedir}/pyfann/*.so
+%dir %{py_sitedir}/pyfann
+%{py_sitedir}/pyfann/*.py[co]
 %{_examplesdir}/python-%{name}-%{version}
