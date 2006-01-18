@@ -10,7 +10,7 @@ Source0:	http://dl.sourceforge.net/fann/%{name}-%{version}.tar.bz2
 Source1:	http://dl.sourceforge.net/fann/%{name}_doc_complete_1.0.pdf
 # Source1-md5:	8117a677afc79dfaa31de39ca84d82da
 Patch0:		%{name}-python.patch
-URL:		http://fann.sourceforge.net/
+URL:		http://leenissen.dk/fann/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
