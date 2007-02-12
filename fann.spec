@@ -1,5 +1,5 @@
 Summary:	A fast artificial neural network library
-Summary(pl.UTF-8):   Szybka biblioteka do tworzenia sztucznych sieci neuronowych
+Summary(pl.UTF-8):	Szybka biblioteka do tworzenia sztucznych sieci neuronowych
 Name:		fann
 Version:	2.0.0
 Release:	1
@@ -36,7 +36,7 @@ działania na systemach typu iPAQ.
 
 %package devel
 Summary:	Development libraries for FANN
-Summary(pl.UTF-8):   Pliki nagłówkowe FANN
+Summary(pl.UTF-8):	Pliki nagłówkowe FANN
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -50,7 +50,7 @@ oparciu o bibliotekę FANN.
 
 %package doc
 Summary:	FANN documentation
-Summary(pl.UTF-8):   Dokumentacja do FANN
+Summary(pl.UTF-8):	Dokumentacja do FANN
 Group:		Documentation
 
 %description doc
@@ -61,7 +61,7 @@ Dokumentacja do FANN.
 
 %package static
 Summary:	FANN static libraries
-Summary(pl.UTF-8):   Biblioteki statyczne FANN
+Summary(pl.UTF-8):	Biblioteki statyczne FANN
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -73,7 +73,7 @@ Biblioteki statyczne FANN.
 
 %package -n python-%{name}
 Summary:	Python support for FANN
-Summary(pl.UTF-8):   Moduł języka Python dla biblioteki FANN
+Summary(pl.UTF-8):	Moduł języka Python dla biblioteki FANN
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
 %pyrequires_eq	python-libs
