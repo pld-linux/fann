@@ -61,7 +61,7 @@ Dokumentacja do FANN.
 
 %package static
 Summary:	FANN static libraries
-Summary(pl):    Biblioteki statyczne FANN
+Summary(pl.UTF-8):   Biblioteki statyczne FANN
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
