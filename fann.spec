@@ -1,5 +1,5 @@
 Summary:	A fast artificial neural network library
-Summary(pl):	Szybka biblioteka do tworzenia sztucznych sieci neuronowych
+Summary(pl.UTF-8):   Szybka biblioteka do tworzenia sztucznych sieci neuronowych
 Name:		fann
 Version:	2.0.0
 Release:	1
@@ -27,16 +27,16 @@ The library implements multilayer feedforward ANNs, up to 150 times
 faster than other libraries. FANN supports execution in fixed point,
 for fast execution on systems like the iPAQ.
 
-%description -l pl
+%description -l pl.UTF-8
 FANN (Fast Artificial Neural Network - szybkie sztuczne sieci
-neuronowe) to biblioteka napisana w ANSI C, implementuj±ca
+neuronowe) to biblioteka napisana w ANSI C, implementujÄ…ca
 wielowarstwowe sztuczne sieci neuronowe, do 150 razy szybsza od innych
-bibliotek. FANN obs³uguje operacje sta³oprzecinkowe w celu szybkiego
-dzia³ania na systemach typu iPAQ.
+bibliotek. FANN obsÅ‚uguje operacje staÅ‚oprzecinkowe w celu szybkiego
+dziaÅ‚ania na systemach typu iPAQ.
 
 %package devel
 Summary:	Development libraries for FANN
-Summary(pl):	Pliki nag³ówkowe FANN
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe FANN
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -44,19 +44,19 @@ Requires:	%{name} = %{version}-%{release}
 This package is only needed if you intend to develop and/or compile
 programs based on the FANN library.
 
-%description devel -l pl
-Pliki nag³ówkowe FANN, potrzebne do tworzenia programów napisanych w
-oparciu o bibliotekê FANN.
+%description devel -l pl.UTF-8
+Pliki nagÅ‚Ã³wkowe FANN, potrzebne do tworzenia programÃ³w napisanych w
+oparciu o bibliotekÄ™ FANN.
 
 %package doc
 Summary:	FANN documentation
-Summary(pl):	Dokumentacja do FANN
+Summary(pl.UTF-8):   Dokumentacja do FANN
 Group:		Documentation
 
 %description doc
 Documentation for FANN.
 
-%description doc -l pl
+%description doc -l pl.UTF-8
 Dokumentacja do FANN.
 
 %package static
@@ -68,12 +68,12 @@ Requires:	%{name}-devel = %{version}-%{release}
 %description static
 FANN static libraries.
  
-%description static -l pl
+%description static -l pl.UTF-8
 Biblioteki statyczne FANN.
 
 %package -n python-%{name}
 Summary:	Python support for FANN
-Summary(pl):	Modu³ jêzyka Python dla biblioteki FANN
+Summary(pl.UTF-8):   ModuÅ‚ jÄ™zyka Python dla biblioteki FANN
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
 %pyrequires_eq	python-libs
@@ -81,8 +81,8 @@ Requires:	%{name} = %{version}-%{release}
 %description -n python-%{name}
 Python support for FANN.
 
-%description -n python-%{name} -l pl
-Modu³ jêzyka Python dla biblioteki FANN.
+%description -n python-%{name} -l pl.UTF-8
+ModuÅ‚ jÄ™zyka Python dla biblioteki FANN.
 
 %prep
 %setup -q
