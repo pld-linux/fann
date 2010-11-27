@@ -2,7 +2,7 @@ Summary:	A fast artificial neural network library
 Summary(pl.UTF-8):	Szybka biblioteka do tworzenia sztucznych sieci neuronowych
 Name:		fann
 Version:	2.0.0
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/fann/%{name}-%{version}.tar.bz2
@@ -10,12 +10,13 @@ Source0:	http://dl.sourceforge.net/fann/%{name}-%{version}.tar.bz2
 Source1:	http://dl.sourceforge.net/fann/%{name}_doc_complete_1.0.pdf
 # Source1-md5:	8117a677afc79dfaa31de39ca84d82da
 Patch0:		%{name}-python.patch
+Patch1:		%{name}-link.patch
 URL:		http://leenissen.dk/fann/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	python
-BuildRequires:	python-devel >= 1:2.3
+BuildRequires:	python-devel >= 1:2.7
 BuildRequires:	python-modules
 BuildRequires:	sed >= 4.0
 BuildRequires:	swig-python >= 1.3.25
@@ -88,6 +89,7 @@ Moduł języka Python dla biblioteki FANN.
 %setup -q
 cp %{SOURCE1} .
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -95,10 +97,11 @@ cp %{SOURCE1} .
 %{__autoconf}
 %{__automake}
 %configure
-%{__make}
+%{__make} \
+	CFLAGS="%{rpmcflags} -fPIC"
 cd python
 
-CFLAGS="%{rpmcflags}" \
+CFLAGS="%{rpmcflags} -fPIC" \
 %{__make}
 %py_comp .
 %py_ocomp .
@@ -130,12 +133,25 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
+%attr(755,root,root) %{_libdir}/libdoublefann.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libdoublefann.so.2
+%attr(755,root,root) %{_libdir}/libfann.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libfann.so.2
+%attr(755,root,root) %{_libdir}/libfixedfann.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libfixedfann.so.2
+%attr(755,root,root) %{_libdir}/libfloatfann.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libfloatfann.so.2
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_libdir}/lib*.la
+%attr(755,root,root) %{_libdir}/libdoublefann.so
+%attr(755,root,root) %{_libdir}/libfann.so
+%attr(755,root,root) %{_libdir}/libfixedfann.so
+%attr(755,root,root) %{_libdir}/libfloatfann.so
+%{_libdir}/libdoublefann.la
+%{_libdir}/libfann.la
+%{_libdir}/libfixedfann.la
+%{_libdir}/libfloatfann.la
 %{_includedir}/*.h
 %{_pkgconfigdir}/fann.pc
 %{_examplesdir}/%{name}-%{version}
@@ -146,11 +162,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/libdoublefann.a
+%{_libdir}/libfann.a
+%{_libdir}/libfixedfann.a
+%{_libdir}/libfloatfann.a
 
 %files -n python-%{name}
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_sitedir}/pyfann/*.so
 %dir %{py_sitedir}/pyfann
 %{py_sitedir}/pyfann/*.py[co]
+%{py_sitedir}/pyfann-*.egg-info
 %{_examplesdir}/python-%{name}-%{version}
