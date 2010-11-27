@@ -1,12 +1,15 @@
 diff -urN fann-2.0.0/python/pyfann/Makefile fann-2.0.0.new/python/pyfann/Makefile
 --- fann-2.0.0/python/pyfann/Makefile	2005-12-03 02:22:43.000000000 +0100
-+++ fann-2.0.0.new/python/pyfann/Makefile	2006-01-07 20:18:27.000000000 +0100
-@@ -5,12 +5,12 @@
++++ fann-2.0.0.new/python/pyfann/Makefile	2010-11-27 17:49:34.672568903 +0100
+@@ -3,17 +3,17 @@
  
- PYTHON=python2.4
+ TARGETS = _libfann.so
+ 
+-PYTHON=python2.4
++PYTHON=python2.7
  FANN_DIR="../.."
 -LIBS=-L. -L/usr/local/lib -L/usr/bin -l$(PYTHON) $(FANN_DIR)/src/fann*.o
-+LIBS=-L. -L/usr/lib -L/usr/bin -l$(PYTHON) $(FANN_DIR)/src/fann*.o
++LIBS=-L. -L/usr/lib -l$(PYTHON) $(FANN_DIR)/src/fann*.o
  
  all: $(TARGETS)
  	
@@ -15,4 +18,8 @@ diff -urN fann-2.0.0/python/pyfann/Makefile fann-2.0.0.new/python/pyfann/Makefil
 +	gcc $(LIBS) -shared $^ -o $@
  
  %.o: %.c 
- 	gcc -c $< -I/usr/include/$(PYTHON)/ -I$(FANN_DIR)/src/include/
+-	gcc -c $< -I/usr/include/$(PYTHON)/ -I$(FANN_DIR)/src/include/
++	$(CC) $(CFLAGS) -c $< -I/usr/include/$(PYTHON)/ -I$(FANN_DIR)/src/include/
+ 
+ pyfann_wrap.c: pyfann.i 
+ 	swig -python $<
