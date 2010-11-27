@@ -1,0 +1,19 @@
+diff -urN fann-2.0.0/src/Makefile.am fann-2.0.0.new/src/Makefile.am
+--- fann-2.0.0/src/Makefile.am	2005-12-13 22:17:45.000000000 +0100
++++ fann-2.0.0.new/src/Makefile.am	2010-11-27 17:56:01.155902638 +0100
+@@ -6,8 +6,15 @@
+ AM_CFLAGS = -D_REENTRANT
+ 
+ libfloatfann_la_SOURCES = floatfann.c
++libfloatfann_la_LIBADD = -lm
++
+ libdoublefann_la_SOURCES = doublefann.c
++libdoublefann_la_LIBADD = -lm
++
+ libfixedfann_la_SOURCES = fixedfann.c
++libfixedfann_la_LIBADD = -lm
++
+ libfann_la_SOURCES = floatfann.c
++libfann_la_LIBADD = -lm
+ 
+ EXTRA_DIST = fann.c fann_io.c fann_train.c fann_train_data.c fann_error.c fann_cascade.c
