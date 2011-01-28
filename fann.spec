@@ -18,6 +18,7 @@ BuildRequires:	libtool
 BuildRequires:	python
 BuildRequires:	python-devel >= 1:2.7
 BuildRequires:	python-modules
+BuildRequires:	rpm-pythonprov
 BuildRequires:	sed >= 4.0
 BuildRequires:	swig-python >= 1.3.25
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
