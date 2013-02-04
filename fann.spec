@@ -1,26 +1,17 @@
 Summary:	A fast artificial neural network library
 Summary(pl.UTF-8):	Szybka biblioteka do tworzenia sztucznych sieci neuronowych
 Name:		fann
-Version:	2.0.0
-Release:	2
+Version:	2.2.0
+Release:	1
 License:	LGPL
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/fann/%{name}-%{version}.tar.bz2
-# Source0-md5:	4224efa533265dcf39237667973d0e20
-Source1:	http://dl.sourceforge.net/fann/%{name}_doc_complete_1.0.pdf
+Source0:	http://downloads.sourceforge.net/fann/FANN-%{version}-Source.tar.gz
+# Source0-md5:	c9d6c8da5bb70276352a1718a668562c
+Source1:	http://downloads.sourceforge.net/fann/%{name}_doc_complete_1.0.pdf
 # Source1-md5:	8117a677afc79dfaa31de39ca84d82da
-Patch0:		%{name}-python.patch
-Patch1:		%{name}-link.patch
+Patch0:		%{name}-link.patch
 URL:		http://leenissen.dk/fann/
-BuildRequires:	autoconf
-BuildRequires:	automake
-BuildRequires:	libtool
-BuildRequires:	python
-BuildRequires:	python-devel >= 1:2.7
-BuildRequires:	python-modules
-BuildRequires:	rpm-pythonprov
-BuildRequires:	sed >= 4.0
-BuildRequires:	swig-python >= 1.3.25
+BuildRequires:	cmake >= 2.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -61,69 +52,23 @@ Documentation for FANN.
 %description doc -l pl.UTF-8
 Dokumentacja do FANN.
 
-%package static
-Summary:	FANN static libraries
-Summary(pl.UTF-8):	Biblioteki statyczne FANN
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-
-%description static
-FANN static libraries.
- 
-%description static -l pl.UTF-8
-Biblioteki statyczne FANN.
-
-%package -n python-%{name}
-Summary:	Python support for FANN
-Summary(pl.UTF-8):	Moduł języka Python dla biblioteki FANN
-Group:		Libraries/Python
-Requires:	%{name} = %{version}-%{release}
-%pyrequires_eq	python-libs
-
-%description -n python-%{name}
-Python support for FANN.
-
-%description -n python-%{name} -l pl.UTF-8
-Moduł języka Python dla biblioteki FANN.
-
 %prep
-%setup -q
+%setup -q -n FANN-%{version}-Source
 cp %{SOURCE1} .
 %patch0 -p1
-%patch1 -p1
 
 %build
-%{__libtoolize}
-%{__aclocal}
-%{__autoconf}
-%{__automake}
-%configure
-%{__make} \
-	CFLAGS="%{rpmcflags} -fPIC"
-cd python
-
-CFLAGS="%{rpmcflags} -fPIC" \
+%cmake .
 %{__make}
-%py_comp .
-%py_ocomp .
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-cd python
-%{__make} install \
-	ROOT=$RPM_BUILD_ROOT
-
-cd ..
-install -d $RPM_BUILD_ROOT%{_examplesdir}/{python-,}%{name}-%{version}
-
-install python/examples/*.py $RPM_BUILD_ROOT%{_examplesdir}/python-%{name}-%{version} 
 install examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
-
-rm -f $RPM_BUILD_ROOT%{py_sitedir}/pyfann/*.py
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -133,7 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README TODO
+%doc README.txt datasets/*
 %attr(755,root,root) %{_libdir}/libdoublefann.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libdoublefann.so.2
 %attr(755,root,root) %{_libdir}/libfann.so.*.*.*
@@ -149,29 +94,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libfann.so
 %attr(755,root,root) %{_libdir}/libfixedfann.so
 %attr(755,root,root) %{_libdir}/libfloatfann.so
-%{_libdir}/libdoublefann.la
-%{_libdir}/libfann.la
-%{_libdir}/libfixedfann.la
-%{_libdir}/libfloatfann.la
 %{_includedir}/*.h
 %{_pkgconfigdir}/fann.pc
 %{_examplesdir}/%{name}-%{version}
 
 %files doc
 %defattr(644,root,root,755)
-%doc fann_doc_complete_1.0.pdf doc/*
-
-%files static
-%defattr(644,root,root,755)
-%{_libdir}/libdoublefann.a
-%{_libdir}/libfann.a
-%{_libdir}/libfixedfann.a
-%{_libdir}/libfloatfann.a
-
-%files -n python-%{name}
-%defattr(644,root,root,755)
-%attr(755,root,root) %{py_sitedir}/pyfann/*.so
-%dir %{py_sitedir}/pyfann
-%{py_sitedir}/pyfann/*.py[co]
-%{py_sitedir}/pyfann-*.egg-info
-%{_examplesdir}/python-%{name}-%{version}
+%doc fann_doc_complete_1.0.pdf
